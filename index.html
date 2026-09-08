@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Encore Funnel</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  --bg:#f6f1e6;
+  --surface:#ffffff;
+  --surface-2:#efe7d6;
+  --text:#211a12;
+  --text-dim:#6d6252;
+  --accent:#b8611a;
+  --accent-ink:#ffffff;
+  --accent2:#2f7d6e;
+  --border:#ddd2ba;
+  --line:#c9bb9c;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#17141b;
+    --surface:#1f1b24;
+    --surface-2:#26212c;
+    --text:#f2ece0;
+    --text-dim:#a99e8e;
+    --accent:#e2954a;
+    --accent-ink:#1a1208;
+    --accent2:#5cb3a0;
+    --border:#38323f;
+    --line:#433c4c;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#17141b;
+  --surface:#1f1b24;
+  --surface-2:#26212c;
+  --text:#f2ece0;
+  --text-dim:#a99e8e;
+  --accent:#e2954a;
+  --accent-ink:#1a1208;
+  --accent2:#5cb3a0;
+  --border:#38323f;
+  --line:#433c4c;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:"Archivo",system-ui,sans-serif;
+  line-height:1.5;
+}
+.wrap{max-width:840px;margin:0 auto;padding:64px 24px 96px;}
+
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-weight:600;
+}
+h1{
+  font-family:"Fraunces",Georgia,serif;
+  font-weight:600;
+  font-size:clamp(34px,6vw,54px);
+  line-height:1.05;
+  letter-spacing:-0.01em;
+  text-wrap:balance;
+  margin:10px 0 18px;
+}
+h1 em{font-style:italic;color:var(--accent);}
+.lede{
+  font-size:18px;
+  color:var(--text-dim);
+  max-width:60ch;
+  margin:0 0 8px;
+}
+.thesis{
+  margin-top:28px;
+  padding:18px 20px;
+  background:var(--surface-2);
+  border-left:3px solid var(--accent);
+  border-radius:2px;
+  font-size:15px;
+}
+.thesis strong{color:var(--accent);}
+
+h2{
+  font-family:"Fraunces",Georgia,serif;
+  font-weight:600;
+  font-size:26px;
+  letter-spacing:-0.01em;
+  margin:0 0 6px;
+}
+.section{margin-top:72px;}
+.section-intro{color:var(--text-dim);font-size:15px;max-width:62ch;margin:0 0 28px;}
+
+figure{margin:0;}
+figcaption{
+  font-size:13px;
+  color:var(--text-dim);
+  margin-top:14px;
+  text-align:center;
+}
+svg text{font-family:"Archivo",sans-serif;}
+.svg-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:20px 8px;
+  overflow-x:auto;
+}
+.svg-card svg{display:block;width:100%;height:auto;min-width:340px;}
+
+.stage-list{display:flex;flex-direction:column;gap:2px;margin-top:28px;}
+.stage{
+  display:grid;
+  grid-template-columns:44px 1fr;
+  gap:16px;
+  padding:20px 0;
+  border-top:1px solid var(--border);
+}
+.stage:first-child{border-top:none;}
+.stage-num{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:13px;
+  color:var(--accent);
+  font-weight:600;
+  padding-top:2px;
+}
+.stage-name{
+  font-family:"Fraunces",Georgia,serif;
+  font-weight:600;
+  font-size:19px;
+  margin:0 0 6px;
+}
+.stage-body{color:var(--text-dim);font-size:14.5px;max-width:56ch;}
+.stage-body b{color:var(--text);font-weight:600;}
+.stage-body a{color:var(--accent2);font-weight:600;text-decoration:underline;text-underline-offset:2px;}
+.stage-meta{
+  display:flex;gap:16px;flex-wrap:wrap;
+  margin-top:10px;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11.5px;
+  color:var(--text);
+}
+.stage-meta span{
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  padding:3px 8px;
+  border-radius:20px;
+}
+
+.cadence{
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  background:var(--surface);
+}
+.cadence-row{
+  display:grid;
+  grid-template-columns:100px 1fr 120px;
+  gap:16px;
+  padding:14px 18px;
+  border-top:1px solid var(--border);
+  align-items:baseline;
+}
+.cadence-row:first-child{border-top:none;}
+.cadence-row.head{
+  background:var(--surface-2);
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color:var(--text-dim);
+  padding:10px 18px;
+}
+.week-tag{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12px;
+  color:var(--accent);
+  font-weight:600;
+}
+.cadence-title{font-weight:600;font-size:14.5px;}
+.cadence-desc{color:var(--text-dim);font-size:13.5px;margin-top:2px;}
+.cost-tag{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  color:var(--accent2);
+  text-align:right;
+}
+
+.welcome-track{
+  display:flex;
+  overflow-x:auto;
+  gap:12px;
+  margin-top:24px;
+  padding-bottom:8px;
+}
+.welcome-step{
+  min-width:168px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:14px 16px;
+  flex:0 0 auto;
+}
+.welcome-step .day{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  color:var(--accent);
+  font-weight:600;
+}
+.welcome-step h4{margin:6px 0 4px;font-size:14.5px;font-family:"Fraunces",serif;font-weight:600;}
+.welcome-step p{margin:0;font-size:12.5px;color:var(--text-dim);}
+
+.checklist{list-style:none;margin:24px 0 0;padding:0;display:flex;flex-direction:column;gap:10px;}
+.checklist li{
+  display:grid;
+  grid-template-columns:22px 1fr;
+  gap:12px;
+  font-size:14.5px;
+  align-items:start;
+}
+.checklist .box{
+  width:18px;height:18px;
+  border:1.5px solid var(--line);
+  border-radius:4px;
+  margin-top:2px;
+}
+.checklist b{font-weight:600;}
+.checklist span.dim{color:var(--text-dim);}
+
+.roi{
+  margin-top:72px;
+  padding:32px;
+  background:var(--surface-2);
+  border-radius:10px;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:24px;
+  align-items:center;
+}
+.roi-num{
+  font-family:"Fraunces",Georgia,serif;
+  font-weight:600;
+  font-style:italic;
+  font-size:56px;
+  color:var(--accent);
+  line-height:1;
+}
+.roi-text{font-size:14.5px;color:var(--text-dim);max-width:48ch;}
+.roi-text b{color:var(--text);}
+
+.qr-block{
+  margin-top:28px;
+  padding:24px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  display:grid;
+  grid-template-columns:104px 1fr;
+  gap:22px;
+  align-items:center;
+}
+.qr-code{
+  width:104px;
+  height:104px;
+  background:#ffffff;
+  border-radius:8px;
+  padding:6px;
+  box-shadow:0 0 0 1px var(--border);
+}
+.qr-code svg{display:block;width:100%;height:100%;}
+.qr-text{font-size:13.5px;color:var(--text-dim);margin:0;max-width:52ch;}
+.qr-text a{color:var(--accent2);font-weight:600;text-decoration:underline;text-underline-offset:2px;}
+
+.cost-note{
+  margin-top:28px;
+  padding:18px 20px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-left:3px solid var(--accent2);
+  border-radius:2px;
+  font-size:14.5px;
+  color:var(--text-dim);
+}
+.cost-note b{color:var(--text);}
+.cost-note a{color:var(--accent2);font-weight:600;text-decoration:underline;text-underline-offset:2px;}
+
+.vet-list{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-top:20px;
+}
+.vet-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:16px 18px;
+}
+.vet-card .num{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  color:var(--accent2);
+  font-weight:600;
+}
+.vet-card h4{margin:6px 0 4px;font-size:14.5px;font-family:"Fraunces",serif;font-weight:600;}
+.vet-card p{margin:0;font-size:13px;color:var(--text-dim);}
+
+.script{
+  margin-top:20px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:var(--surface);
+  overflow:hidden;
+}
+.script-head{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:4px 12px;
+  padding:12px 18px;
+  background:var(--surface-2);
+  border-bottom:1px solid var(--border);
+}
+.script-label{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color:var(--accent);
+  font-weight:600;
+}
+.script-when{font-size:12.5px;color:var(--text-dim);}
+.script-body{padding:16px 18px;}
+.bubble{
+  font-size:14px;
+  line-height:1.55;
+  background:var(--surface-2);
+  border-radius:12px;
+  border-bottom-left-radius:3px;
+  padding:12px 16px;
+  max-width:52ch;
+}
+.bubble em{color:var(--accent);font-style:normal;font-weight:600;}
+.script-note{margin-top:10px;font-size:12.5px;color:var(--text-dim);}
+
+.rate-card{
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  background:var(--surface);
+  margin-top:20px;
+}
+.rate-row{
+  display:grid;
+  grid-template-columns:90px 1fr 130px;
+  gap:16px;
+  padding:14px 18px;
+  border-top:1px solid var(--border);
+  align-items:baseline;
+}
+.rate-row:first-child{border-top:none;}
+.rate-row.head{
+  background:var(--surface-2);
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color:var(--text-dim);
+  padding:10px 18px;
+}
+.rate-price{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:13px;
+  color:var(--accent);
+  font-weight:600;
+}
+.rate-ask{font-weight:600;font-size:14px;}
+.rate-desc{color:var(--text-dim);font-size:13px;margin-top:2px;}
+.rate-vol{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--accent2);text-align:right;}
+
+@media (max-width:600px){
+  .vet-list{grid-template-columns:1fr;}
+  .rate-row{grid-template-columns:1fr;gap:4px;}
+  .rate-vol{text-align:left;}
+  .roi{grid-template-columns:1fr;text-align:left;}
+  .cadence-row{grid-template-columns:1fr;gap:4px;}
+  .cost-tag{text-align:left;}
+  .qr-block{grid-template-columns:1fr;text-align:center;justify-items:center;}
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+  <div class="eyebrow">Fan-funnel system &middot; borrowed promo to owned list</div>
+  <h1>The <em>Encore</em> Funnel</h1>
+  <p class="lede">One system, not five separate ones: paid promo drives strangers into your music, your music drives them onto your Beehiiv list, and your list sells merch, shows, and giveaways on autopilot for the next year.</p>
+
+  <div class="thesis">
+    <strong>The mistake you named:</strong> running promo, a playlist, and an email list as three disconnected projects. They only pay off as one pipe — promo buys attention, YouTube proves you're worth following, the popup converts that attention into an owned channel, and Beehiiv's automation turns a single visit into fifty-two weeks of revenue touches.
+  </div>
+
+  <div class="section">
+    <div class="eyebrow">01 &middot; The mechanism</div>
+    <h2>How one listener becomes a year of touchpoints</h2>
+    <p class="section-intro">Six linked stages. The promo buy only has to work once per campaign — after that, every video you publish keeps feeding the same list for free. YouTube is the platform to anchor this on: subscribers actually see new uploads, where TikTok hands that decision to the algorithm — so the list-building CTA in your description reaches the same people reliably, upload after upload, instead of depending on whether a given post gets pushed to feeds.</p>
+
+    <figure class="svg-card">
+      <svg viewBox="0 0 760 1150" role="img" aria-label="Funnel diagram: paid promo leads to a YouTube video, which leads to a giveaway popup, which leads to the Beehiiv list and its welcome sequence, which feeds a 52-week automated nurture, which produces merch, show, and giveaway revenue. A second loop shows every playlist video's description also feeding the giveaway popup directly.">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+          </marker>
+          <marker id="arrowAccent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--accent2)"/>
+          </marker>
+        </defs>
+
+        <!-- stage boxes -->
+        <g font-size="13" text-anchor="middle">
+
+          <!-- 1 Promo buy -->
+          <rect x="230" y="16" width="300" height="64" rx="7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <text x="380" y="40" font-weight="600" fill="currentColor">Paid promo on a bigger page</text>
+          <text x="380" y="60" fill="currentColor" opacity="0.6" font-size="11.5">low-cost placement, one-time cost</text>
+
+          <line x1="380" y1="80" x2="380" y2="112" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+          <!-- 2 YouTube -->
+          <rect x="230" y="112" width="300" height="64" rx="7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <text x="380" y="136" font-weight="600" font-size="12" fill="currentColor">YouTube playlist (videos + vlogs)</text>
+          <text x="380" y="156" fill="currentColor" opacity="0.6" font-size="11">CTA repeats in every video's description</text>
+
+          <line x1="380" y1="176" x2="380" y2="208" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+          <!-- 3 popup -->
+          <rect x="230" y="208" width="300" height="72" rx="7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <text x="380" y="234" font-weight="600" font-size="12" fill="currentColor">Description link (+ popup backup)</text>
+          <text x="380" y="253" fill="currentColor" opacity="0.6" font-size="11">"win free merch/autographs — join the list"</text>
+
+          <line x1="380" y1="280" x2="380" y2="312" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+          <!-- 4 beehiiv -->
+          <rect x="230" y="312" width="300" height="64" rx="7" fill="var(--accent)" fill-opacity="0.1" stroke="var(--accent)" stroke-width="1.6"/>
+          <text x="380" y="336" font-weight="600" fill="var(--accent)">Beehiiv list + welcome sequence</text>
+          <text x="380" y="356" fill="var(--accent)" opacity="0.75" font-size="11.5">this is the asset you now own</text>
+
+          <line x1="380" y1="376" x2="380" y2="408" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+          <!-- 5 automation -->
+          <rect x="230" y="408" width="300" height="72" rx="7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+          <text x="380" y="434" font-weight="600" fill="currentColor">52-week automated nurture</text>
+          <text x="380" y="453" fill="currentColor" opacity="0.6" font-size="11.5">rotating: merch, shows, giveaways</text>
+
+          <line x1="380" y1="480" x2="380" y2="512" stroke="currentColor" stroke-width="1.4" marker-end="url(#arrow)"/>
+
+          <!-- 6 revenue -->
+          <rect x="230" y="512" width="300" height="64" rx="7" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="380" y="536" font-weight="600" font-size="12" fill="currentColor">Merch, ticket, and paid-entry sales</text>
+          <text x="380" y="556" fill="currentColor" opacity="0.6" font-size="11.5">recurring revenue, not a one-off</text>
+        </g>
+
+        <!-- loop: every playlist video feeds stage 3 continuously -->
+        <path d="M 230 144 C 90 144, 90 244, 228 244" fill="none" stroke="var(--accent2)" stroke-width="1.4" stroke-dasharray="4 4" marker-end="url(#arrowAccent)"/>
+        <text x="60" y="196" fill="var(--accent2)" font-size="11" text-anchor="middle" transform="rotate(-90 60 196)">every future video, free</text>
+
+        <!-- ROI compounding note bottom -->
+        <line x1="380" y1="576" x2="380" y2="600" stroke="currentColor" stroke-width="1.4"/>
+        <rect x="230" y="600" width="300" height="76" rx="7" fill="var(--surface-2)" stroke="var(--border)"/>
+        <text x="380" y="624" font-size="12.5" fill="currentColor" font-weight="600" text-anchor="middle">List keeps compounding</text>
+        <text x="380" y="643" font-size="11" fill="currentColor" opacity="0.65" text-anchor="middle">next campaign's promo buy adds to</text>
+        <text x="380" y="658" font-size="11" fill="currentColor" opacity="0.65" text-anchor="middle">the same list, not a new one</text>
+
+      </svg>
+    </figure>
+    <figcaption>The only stage you pay for repeatedly is the promo buy — every other arrow runs on automation once it's built.</figcaption>
+  </div>
+
+  <div class="section">
+    <div class="eyebrow">02 &middot; Influencer outreach</div>
+    <h2>Getting stage 01 for as little as possible</h2>
+    <p class="section-intro">Micro-influencers (5K–75K followers, genre- or scene-adjacent) convert better per dollar than one big placement — and they'll negotiate. The goal is the same reach for less money, split across more accounts so no single post carries the whole campaign.</p>
+
+    <div class="vet-list">
+      <div class="vet-card"><div class="num">CHECK 1</div><h4>Engagement over follower count</h4><p>Look for a 3–8% engagement rate (likes+comments ÷ followers on recent posts). A 12K-follower page averaging 900 real comments beats a 100K page averaging 200.</p></div>
+      <div class="vet-card"><div class="num">CHECK 2</div><h4>Real comments, real audience</h4><p>Skim the last 10 posts' comments. Genuine reactions and replies from the creator are good signs; rows of emoji-only comments from unrelated accounts mean bought followers.</p></div>
+      <div class="vet-card"><div class="num">CHECK 3</div><h4>Genre or scene overlap</h4><p>Their audience should already listen to something adjacent to you — a curator, a similar artist's fan page, a local scene account. Overlap matters more than raw size.</p></div>
+    </div>
+
+    <div class="script">
+      <div class="script-head"><span class="script-label">Script 1 &middot; Shoutout for shoutout</span><span class="script-when">use with pages close to your own size</span></div>
+      <div class="script-body">
+        <div class="bubble">Hey <em>[name]</em> — love what you're doing with <em>[their page/account]</em>, especially <em>[specific recent post]</em>. I make <em>[genre]</em> music and think our audiences overlap a lot. Want to do a shoutout swap this week — I post you to my list/page, you post my new video to yours? No money involved, just trading reach. Happy to go first if that helps.</div>
+        <div class="script-note">Naming a specific post proves you're not mass-DMing — it's the single biggest lever on reply rate.</div>
+      </div>
+    </div>
+
+    <div class="script">
+      <div class="script-head"><span class="script-label">Script 2 &middot; Cold paid ask</span><span class="script-when">use with pages bigger than yours, no existing relationship</span></div>
+      <div class="script-body">
+        <div class="bubble">Hey <em>[name]</em>, I'm an independent <em>[genre]</em> artist and I think your audience would genuinely like my new video — <em>[one-line reason, tied to something they've posted before]</em>. Do you do paid story shares or feature posts? I've got a small budget and would love to hear your rate, including whether you'd do a run of a few posts over the month instead of just one.</div>
+        <div class="script-note">Asking their rate first (instead of offering a number) keeps you from anchoring high — and "a few posts over the month" is the opener for Script 3.</div>
+      </div>
+    </div>
+
+    <div class="script">
+      <div class="script-head"><span class="script-label">Script 3 &middot; Negotiating volume</span><span class="script-when">use once they've quoted a single-post price</span></div>
+      <div class="script-body">
+        <div class="bubble">That works for me — instead of one post, what would you charge for <em>about 4 story shares a week</em> for the month, same clip or link, swapped out when I've got something new? It's less work for you than a fresh post each time, and steady reach works better for me than one spike.</div>
+        <div class="script-note">4×/week keeps you showing up in their audience's stories constantly — the whole point isn't one big hit, it's repeated exposure so someone who scrolls past it three times finally clicks the fourth. Framing it as "less work for you" (a re-share, not a new post) is why $10–$100 for a month of that cadence is realistic on smaller pages — you're buying repetition, not production.</div>
+      </div>
+    </div>
+
+    <div class="rate-card">
+      <div class="rate-row head"><div>Budget</div><div>What to ask for</div><div>Fits</div></div>
+      <div class="rate-row">
+        <div class="rate-price">$10&ndash;25</div>
+        <div><div class="rate-ask">One story share, kept up 24 hrs</div><div class="rate-desc">Their existing story template, your link sticker swapped in.</div></div>
+        <div class="rate-vol">5K&ndash;15K followers</div>
+      </div>
+      <div class="rate-row">
+        <div class="rate-price">$25&ndash;50</div>
+        <div><div class="rate-ask">~2&times;/week story shares for the month</div><div class="rate-desc">Roughly 8 story appearances total, spaced across four weeks.</div></div>
+        <div class="rate-vol">10K&ndash;30K followers</div>
+      </div>
+      <div class="rate-row">
+        <div class="rate-price">$50&ndash;100</div>
+        <div><div class="rate-ask">~4&times;/week story shares for the month</div><div class="rate-desc">This is the target cadence from Script 3 — about 16 story appearances over the month, not one feature. It's the tier where "for as many as they can negotiate" pays off.</div></div>
+        <div class="rate-vol">20K&ndash;75K followers</div>
+      </div>
+    </div>
+    <p class="script-note" style="margin-top:14px;">Run this across 4–8 micro-pages instead of one big spend — same total budget, more independent audiences, and one underperforming page doesn't sink the whole campaign. At ~4×/week per page across even 4 pages, that's 60+ story appearances a month pointed at the same link.</p>
+
+    <div class="cost-note" style="margin-top:24px;"><b>Make every story a one-tap click to the playlist.</b> A story that just says "link in bio" loses most of its clicks — insist on the native <b>link sticker</b> (Instagram's "Link" sticker, or TikTok's link/anchor feature) pointing straight at your YouTube playlist, not your channel homepage. Give each influencer their own tracked link (a unique UTM tag or a redirect per creator) so you can see which pages actually drove views and signups — that data is what lets you renegotiate down with pages that underperformed and pay more to the ones that worked.</div>
+  </div>
+
+  <div class="section">
+    <div class="eyebrow">03 &middot; Stage by stage</div>
+    <h2>What to actually set up</h2>
+    <div class="stage-list">
+
+      <div class="stage">
+        <div class="stage-num">01</div>
+        <div>
+          <div class="stage-name">Buy cheap reach from a bigger page</div>
+          <div class="stage-body">Pay or trade for a shoutout/feature from an account with an audience adjacent to yours — not necessarily huge, just bigger and relevant. The only job of this post is to send people to one piece of your music.</div>
+          <div class="stage-meta"><span>cost: low, one-time</span><span>channel: IG/TikTok page, playlist curator, blog</span></div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-num">02</div>
+        <div>
+          <div class="stage-name">Land them on a YouTube playlist, not one video</div>
+          <div class="stage-body">Send the promo link to a <em>playlist</em> — your music videos plus vlogs, behind-the-scenes, anything you've got — instead of a single clip. A single video only gives you one shot at the signup CTA; a playlist autoplays into the next video and the next, and every single one carries the same call-to-action. More videos watched means more chances they see it and finally click, instead of relying on one video to convert on its own. The bar to clear here is low: any playlist where every video's description links to your Beehiiv signup makes the whole system work — it doesn't need to be more complicated than that.</div>
+          <div class="stage-meta"><span>tool: YouTube playlist (music videos + vlogs)</span><span>every video description carries the same CTA</span></div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-num">03</div>
+        <div>
+          <div class="stage-name">Capture with a giveaway, not a newsletter pitch</div>
+          <div class="stage-body">"Sign up for a chance to win [merch / a signed print / a shoutout]" converts far better than "join my newsletter." Put this as a popup on your linked landing page — but don't depend on it. A popup can get blocked, skipped, or just not show on mobile, so the CTA has to lead every video description, not sit buried under lyrics/credits where most viewers never scroll: first line, above the fold, before anything else. Layer the popup on top if you have one; the description line is the real backbone of this step either way. <b>Same rule everywhere you place this link — description, popup, bio, email footer:</b> make it an actual tappable link, not typed-out text someone has to copy and paste. A dead URL is a lost signup at every single one of these touchpoints, not just the influencer stories covered below.</div>
+          <div class="stage-meta"><span>tool: Beehiiv signup form or a link-in-bio page</span><span>CTA is line one of every description</span></div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-num">04</div>
+        <div>
+          <div class="stage-name">Land them in Beehiiv, tagged by source</div>
+          <div class="stage-body">Every signup enters Beehiiv with a tag for where they came from (this campaign vs. organic vs. a specific video). That tag is what lets you measure whether a given promo buy was worth it — and lets you re-target "giveaway entrants" separately from long-time fans later.
+            <br><br>
+            Source tagging like this works on the free plan. Real <b>list segmentation</b> — grouping subscribers by city, by what they signed up for, by anything you define, and sending a given email only to that group — is a paid-plan feature. Example: fans in Austin get an email when you announce an Austin show; fans everywhere else don't. Or fans who entered the merch giveaway get merch-focused emails while fans who entered the meet-and-greet giveaway get a different track. Free plan sends the same email to your whole list every time; paid segmentation is what lets the same weekly slot feel personal instead of generic. Walkthrough: <a href="https://www.youtube.com/watch?v=ouNSXx2NY90&amp;t=319s" target="_blank" rel="noopener">Beehiiv list segmentation tutorial</a>.
+          </div>
+          <div class="stage-meta"><span>tool: Beehiiv (free tier works to start)</span><span>segmentation (by city, interest, etc.): paid plan</span></div>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-num">05</div>
+        <div>
+          <div class="stage-name">Automate a weekly send for the next year</div>
+          <div class="stage-body">Build this once as a Beehiiv Automation (not a manual send): a welcome series that fires immediately, then a standing weekly broadcast that rotates through a fixed set of content types. You write 12–15 templates, not 52 individual emails. After it's set up, the ongoing work is small: add a new email to the rotation when you have something new to say, or spin up a second, separate automation for something time-bound — a specific show announcement, a merch drop — that runs alongside the standing weekly one and then ends.</div>
+          <div class="stage-meta"><span>tool: Beehiiv Automations + a recurring Broadcast</span><span>cadence: weekly</span></div>
+        </div>
+      </div>
+
+      <div class="cost-note"><b>The "automated" part isn't free.</b> Beehiiv's automation/workflow tools (the welcome sequence firing on autopilot, scheduled recurring sends) sit on its paid plans, roughly $50/month at the tier most solo artists start on. Beehiiv's free plan lets you collect signups and send broadcasts, but every send is you clicking "send" manually each week — no automation. If you're not ready to pay, the system above still works: just block off 15 minutes every week to send that week's template by hand, and build the welcome series as saved drafts you send manually to new subscribers until you can afford to automate it.
+        <br><br>
+        Walkthrough: <a href="https://www.youtube.com/watch?v=LKy66wNwRWY" target="_blank" rel="noopener">Beehiiv automation tutorial</a>.
+        <br><br>
+        Ready to try automation now? Sign up through <a href="https://www.beehiiv.com/?via=Emmanuel-Montano" target="_blank" rel="noopener">beehiiv.com/?via=Emmanuel-Montano</a> for a free trial of the paid plan — that gets you the welcome sequence and weekly automation running free for the trial period while you learn the software, before deciding whether to keep paying. Want to start completely free instead? Sign up at <a href="https://www.beehiiv.com" target="_blank" rel="noopener">beehiiv.com</a> directly — but know what that means: no automation at all, indefinitely, not just while you're learning. Every welcome-series email and every weekly send has to be clicked "send" by you, by hand, for as long as you stay on the free plan. When you're ready to stop doing that manually, come back through the referral link above so you get the free trial on the paid tier instead of being charged from day one.
+      </div>
+
+      <div class="stage">
+        <div class="stage-num">06</div>
+        <div>
+          <div class="stage-name">Let the list sell things you weren't manually pitching</div>
+          <div class="stage-body">Merch drops, show announcements, paid-entry giveaways, and free autograph draws all route through the same weekly slot. This is where the list pays for the original promo buy many times over. This loop runs offline too: put a QR code on the physical merch itself — a hang tag, a care-label insert, a sticker on the packaging — pointing to your Beehiiv signup, and a second one (or the same landing page) for buying more merch. Someone wearing your shirt at a show is standing next to people who'd sign up or buy on the spot if the link were a scan away instead of a search.</div>
+          <div class="stage-meta"><span>revenue: merch, tickets, paid entries</span><span>cost: near zero once automated</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="eyebrow">04 &middot; Welcome sequence</div>
+    <h2>The first eleven days, automated</h2>
+    <p class="section-intro">Fires the moment someone joins from the giveaway popup — this is what turns a giveaway entrant into someone who opens your emails on week 40.</p>
+    <div class="welcome-track">
+      <div class="welcome-step"><div class="day">DAY 0</div><h4>Confirm entry</h4><p>Thanks + giveaway entry confirmed. One link back to the video that brought them.</p></div>
+      <div class="welcome-step"><div class="day">DAY 1</div><h4>Who you are</h4><p>Short story, not a bio. One embedded track or video.</p></div>
+      <div class="welcome-step"><div class="day">DAY 3</div><h4>Bonus content</h4><p>Unreleased clip, demo, or behind-the-scenes — reward for staying subscribed.</p></div>
+      <div class="welcome-step"><div class="day">DAY 7</div><h4>Ask for a reply</h4><p>"What song got you here?" — replies boost sender reputation and flag your most engaged fans.</p></div>
+      <div class="welcome-step"><div class="day">DAY 11</div><h4>Into rotation</h4><p>Drops into the standing weekly send from here on.</p></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="eyebrow">05 &middot; The weekly engine</div>
+    <h2>A five-week rotation, repeated all year</h2>
+    <p class="section-intro">Weighted toward low-cost, frequent giveaways — autographs and shoutouts cost you almost nothing and keep open rates high between the rarer paid-entry drops.</p>
+
+    <div class="cost-note" style="margin-top:0;margin-bottom:20px;"><b>Put a standing shop link in every email footer, not just Week C.</b> A quiet "Shop merch →" line under your sign-off — same spot, every send, whatever that week's actual topic is — means someone can buy on impulse mid-read without you ever pitching. It doesn't compete with the week's content because it's not trying to; it's just always there. That's what makes it feel easy instead of invasive: you're never asking, it's just available.</div>
+
+    <div class="cadence">
+      <div class="cadence-row head"><div>Slot</div><div>Send</div><div>Cost</div></div>
+      <div class="cadence-row">
+        <div class="week-tag">WEEK A</div>
+        <div><div class="cadence-title">New / behind-the-scenes content</div><div class="cadence-desc">Unreleased clip, studio update, or the story behind a track.</div></div>
+        <div class="cost-tag">$0</div>
+      </div>
+      <div class="cadence-row">
+        <div class="week-tag">WEEK B</div>
+        <div><div class="cadence-title">Free autograph giveaway</div><div class="cadence-desc">Reply or click to enter — costs a stamp and five minutes.</div></div>
+        <div class="cost-tag">~$5</div>
+      </div>
+      <div class="cadence-row">
+        <div class="week-tag">WEEK C</div>
+        <div><div class="cadence-title">Merch spotlight</div><div class="cadence-desc">One product, one story, one discount code tied to this list only.</div></div>
+        <div class="cost-tag">$0</div>
+      </div>
+      <div class="cadence-row">
+        <div class="week-tag">WEEK D</div>
+        <div><div class="cadence-title">Shows / performances</div><div class="cadence-desc">Upcoming dates, or a "vote on the next city" poll when there's nothing booked.</div></div>
+        <div class="cost-tag">$0</div>
+      </div>
+      <div class="cadence-row">
+        <div class="week-tag">WEEK E</div>
+        <div><div class="cadence-title">Small shoutout giveaway</div><div class="cadence-desc">Feature a fan, a fan cover, or a small prize pack — keeps the list active between bigger sends.</div></div>
+        <div class="cost-tag">~$10</div>
+      </div>
+      <div class="cadence-row">
+        <div class="week-tag">1&times; / QTR</div>
+        <div><div class="cadence-title">Paid-entry giveaway</div><div class="cadence-desc">Bigger prize, small entry fee — swap in for one Week E slot each quarter once the list is warm.</div></div>
+        <div class="cost-tag">revenue</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="eyebrow">06 &middot; Setup order</div>
+    <h2>Build it in this order, once</h2>
+    <ul class="checklist">
+      <li><div class="box"></div><div><b>Create the Beehiiv publication</b> and one signup form with a source-tag field. <span class="dim">~30 min.</span></div></li>
+      <li><div class="box"></div><div><b>Write the 5-day welcome automation</b> in Beehiiv (Day 0/1/3/7/11 above). <span class="dim">~2 hrs.</span></div></li>
+      <li><div class="box"></div><div><b>Write 6 rotating templates</b> for Weeks A–E plus the quarterly paid giveaway, and schedule the recurring weekly broadcast. <span class="dim">~3 hrs, done once.</span></div></li>
+      <li><div class="box"></div><div><b>Build one email footer with a shop link</b> and reuse it in every template — welcome series included — so it's just always there. <span class="dim">~15 min, done once.</span></div></li>
+      <li><div class="box"></div><div><b>Check every link is actually clickable</b> — description, popup, bio, email footer — not typed-out text someone has to copy. A dead link loses the signup right there.</div></li>
+      <li><div class="box"></div><div><b>Put a QR code on the physical merch</b> — tag, label, or packaging — linking to the Beehiiv signup, plus one to buy more merch. Takes the same loop offline.</div></li>
+      <li><div class="box"></div><div><b>Build the playlist</b> — every music video plus vlogs/BTS you have, ordered so it autoplays from strongest to newest. <span class="dim">~30 min.</span></div></li>
+      <li><div class="box"></div><div><b>Put the signup CTA as line one of every video's description</b> — above lyrics, credits, or anything else, since most viewers never scroll past the fold. This is the placement that has to work no matter what a popup does. <span class="dim">~1 hr.</span></div></li>
+      <li><div class="box"></div><div><b>Vet and DM 6–10 micro-influencer pages</b> using the scripts above, negotiating for ~4 story shares a week for the month, not a single post. <span class="dim">~2–3 hrs.</span></div></li>
+      <li><div class="box"></div><div><b>Confirm each influencer's story uses a link sticker</b> pointed at your playlist, with a per-creator tracked link.</div></li>
+      <li><div class="box"></div><div><b>Watch signups land tagged in Beehiiv</b>, confirm the welcome automation fires, then leave it running.</div></li>
+    </ul>
+  </div>
+
+  <div class="roi">
+    <div class="roi-num">30&times;</div>
+    <div class="roi-text"><b>Email marketing's commonly cited return is ~30:1</b> — but only once the list exists and the sends are automated. The promo buy is what gets you the list; the weekly engine above is what turns it into that return without you touching it after week one.</div>
+  </div>
+
+  <div class="qr-block">
+    <div id="qr-code" class="qr-code" role="img" aria-label="QR code linking to the Encore Funnel Cheat Sheet"></div>
+    <div>
+      <div class="eyebrow">Quick reference</div>
+      <h2 style="margin-bottom:6px;">Scan for the cheat sheet</h2>
+      <p class="qr-text">A condensed, one-screen version of everything above — the flow, the rotation, the rates, the checklist — for pulling up on your phone mid-DM or mid-shoot. <a href="cheat-sheet.html">Open it directly</a> instead.</p>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+(function(){
+  var url = "https://pharaohm33.github.io/encore-funnel/cheat-sheet.html";
+  var container = document.getElementById('qr-code');
+  if (!container || typeof qrcode !== 'function') return;
+  var qr = null;
+  for (var t = 1; t <= 12 && !qr; t++) {
+    try {
+      var candidate = qrcode(t, 'M');
+      candidate.addData(url);
+      candidate.make();
+      qr = candidate;
+    } catch (e) { /* try next type number */ }
+  }
+  if (!qr) return;
+  var n = qr.getModuleCount();
+  var quiet = 2;
+  var size = n + quiet * 2;
+  var svgNS = "http://www.w3.org/2000/svg";
+  var svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("viewBox", "0 0 " + size + " " + size);
+  svg.setAttribute("role", "presentation");
+  var bg = document.createElementNS(svgNS, "rect");
+  bg.setAttribute("x", 0); bg.setAttribute("y", 0);
+  bg.setAttribute("width", size); bg.setAttribute("height", size);
+  bg.setAttribute("fill", "#ffffff");
+  bg.setAttribute("rx", 2);
+  svg.appendChild(bg);
+  for (var r = 0; r < n; r++) {
+    for (var c = 0; c < n; c++) {
+      if (qr.isDark(r, c)) {
+        var rect = document.createElementNS(svgNS, "rect");
+        rect.setAttribute("x", c + quiet);
+        rect.setAttribute("y", r + quiet);
+        rect.setAttribute("width", 1);
+        rect.setAttribute("height", 1);
+        rect.setAttribute("fill", "#17141b");
+        svg.appendChild(rect);
+      }
+    }
+  }
+  container.appendChild(svg);
+})();
+</script>
+
+</body>
+</html>

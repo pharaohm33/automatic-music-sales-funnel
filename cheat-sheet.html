@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Encore Funnel Cheat Sheet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  --bg:#f6f1e6;
+  --surface:#ffffff;
+  --surface-2:#efe7d6;
+  --text:#211a12;
+  --text-dim:#6d6252;
+  --accent:#b8611a;
+  --accent2:#2f7d6e;
+  --border:#ddd2ba;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+html,body{background:var(--bg);}
+body{
+  color:var(--text);
+  font-family:"Archivo",system-ui,sans-serif;
+  line-height:1.4;
+}
+
+.sheet{
+  max-width:880px;
+  margin:0 auto;
+  padding:36px 24px 40px;
+}
+
+.banner{
+  max-width:880px;
+  margin:0 auto;
+  padding:14px 24px 0;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11.5px;
+  color:var(--text-dim);
+  text-align:center;
+}
+.banner b{color:var(--accent2);}
+.banner a,.foot .links a{text-decoration:underline;text-underline-offset:2px;}
+
+/* ---- header ---- */
+.head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  border-bottom:2px solid var(--text);
+  padding-bottom:10px;
+  margin-bottom:14px;
+}
+.head h1{
+  font-family:"Fraunces",Georgia,serif;
+  font-weight:600;
+  font-size:32px;
+  margin:0;
+  letter-spacing:-0.01em;
+}
+.head h1 em{font-style:italic;color:var(--accent);}
+.head .tag{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color:var(--text-dim);
+  text-align:right;
+  max-width:240px;
+}
+
+h2{
+  font-family:"Fraunces",Georgia,serif;
+  font-weight:600;
+  font-size:16px;
+  margin:0 0 8px;
+  letter-spacing:-0.01em;
+}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:10px;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-weight:600;
+  margin-bottom:3px;
+}
+
+/* ---- flow chain ---- */
+.chain{
+  display:flex;
+  align-items:stretch;
+  gap:0;
+  margin-bottom:22px;
+}
+.chain-step{
+  flex:1;
+  border:1px solid var(--border);
+  background:var(--surface);
+  border-radius:6px;
+  padding:10px 10px;
+  font-size:10.5px;
+  position:relative;
+}
+.chain-step .n{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:9.5px;
+  color:var(--accent);
+  font-weight:600;
+  display:block;
+  margin-bottom:3px;
+}
+.chain-step b{display:block;font-size:11.5px;margin-bottom:2px;}
+.chain-step span{color:var(--text-dim);font-size:9.8px;}
+.chain-arrow{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:18px;
+  color:var(--text-dim);
+  font-size:14px;
+}
+
+/* ---- two column body ---- */
+.cols{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:28px;
+  margin-bottom:14px;
+}
+.block{margin-bottom:24px;}
+
+table{width:100%;border-collapse:collapse;font-size:12.5px;}
+th{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:var(--text-dim);
+  text-align:left;
+  border-bottom:1px solid var(--text);
+  padding:5px 8px 6px 0;
+}
+td{
+  padding:7px 8px 7px 0;
+  border-bottom:1px solid var(--border);
+  vertical-align:top;
+}
+td.tag{
+  font-family:"IBM Plex Mono",monospace;
+  color:var(--accent);
+  font-weight:600;
+  white-space:nowrap;
+}
+td .desc{color:var(--text-dim);display:block;font-size:11px;margin-top:1px;}
+
+.checklist{list-style:none;margin:0;padding:0;font-size:12.5px;}
+.checklist li{
+  display:grid;
+  grid-template-columns:14px 1fr;
+  gap:8px;
+  padding:5px 0;
+  align-items:start;
+}
+.checklist .box{width:10px;height:10px;border:1.4px solid var(--text-dim);border-radius:2px;margin-top:3px;}
+.checklist b{font-weight:600;}
+
+.script-box{
+  border:1px solid var(--border);
+  border-left:3px solid var(--accent2);
+  border-radius:4px;
+  padding:10px 12px;
+  font-size:11.5px;
+  color:var(--text-dim);
+  background:var(--surface);
+  margin-top:8px;
+}
+.script-box .lbl{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  color:var(--accent);
+  font-weight:600;
+  display:block;
+  margin-bottom:4px;
+}
+.script-box em{color:var(--text);font-style:normal;font-weight:600;}
+
+.rate-mini{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:6px;}
+.rate-mini td{padding:4px 8px 4px 0;border-bottom:1px solid var(--border);}
+.rate-mini td:first-child{font-family:"IBM Plex Mono",monospace;color:var(--accent);font-weight:600;white-space:nowrap;}
+
+/* ---- footer ---- */
+.foot{
+  border-top:2px solid var(--text);
+  padding-top:16px;
+  margin-top:6px;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:18px;
+  align-items:center;
+}
+.foot .roi{
+  font-family:"Fraunces",Georgia,serif;
+  font-style:italic;
+  font-weight:600;
+  font-size:34px;
+  color:var(--accent);
+  line-height:1;
+}
+.foot p{margin:0;font-size:12px;color:var(--text-dim);}
+.foot p b{color:var(--text);}
+.foot .links{
+  margin-top:6px;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px;
+}
+.foot .links b{color:var(--accent2);}
+
+@media screen and (max-width:700px){
+  .sheet{max-width:100%;padding:24px 18px 32px;}
+  .banner{max-width:100%;padding:12px 18px 0;}
+  .head{flex-direction:column;align-items:flex-start;gap:6px;}
+  .head .tag{text-align:left;max-width:none;}
+  .chain{flex-direction:column;}
+  .chain-arrow{transform:rotate(90deg);width:auto;padding:2px 0;}
+  .cols{grid-template-columns:1fr;gap:6px;}
+  table{font-size:11px;}
+  .foot{grid-template-columns:1fr;text-align:left;}
+}
+</style>
+</head>
+<body>
+
+
+<div class="banner">This is the quick-start overview. For the full step-by-step process — the negotiation scripts, welcome-sequence copy, and setup detail in depth — see <a href="index.html"><b>the Encore Funnel</b></a>.</div>
+
+<div class="sheet">
+
+  <div class="head">
+    <h1>The <em>Encore</em> Funnel</h1>
+    <div class="tag">Promo &rarr; YouTube &rarr; Beehiiv &rarr; 52-week automated nurture</div>
+  </div>
+
+  <div class="chain">
+    <div class="chain-step"><span class="n">01</span><b>Promo buy</b><span>cheap shoutout, bigger page</span></div>
+    <div class="chain-arrow">&rarr;</div>
+    <div class="chain-step"><span class="n">02</span><b>YouTube playlist</b><span>videos + vlogs, CTA in every description</span></div>
+    <div class="chain-arrow">&rarr;</div>
+    <div class="chain-step"><span class="n">03</span><b>Giveaway signup</b><span>description link + popup backup</span></div>
+    <div class="chain-arrow">&rarr;</div>
+    <div class="chain-step"><span class="n">04</span><b>Beehiiv list</b><span>tagged by source, welcome fires</span></div>
+    <div class="chain-arrow">&rarr;</div>
+    <div class="chain-step"><span class="n">05</span><b>Weekly nurture</b><span>52 weeks, rotating templates</span></div>
+    <div class="chain-arrow">&rarr;</div>
+    <div class="chain-step"><span class="n">06</span><b>Revenue</b><span>merch, shows, paid entries</span></div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <div class="block">
+        <div class="eyebrow">Weekly engine</div>
+        <h2>5-week rotation, repeated all year</h2>
+        <table>
+          <tr><th>Slot</th><th>Send</th><th>Cost</th></tr>
+          <tr><td class="tag">WEEK A</td><td>New content / BTS<span class="desc">Unreleased clip or studio update</span></td><td>$0</td></tr>
+          <tr><td class="tag">WEEK B</td><td>Free autograph giveaway<span class="desc">Reply/click to enter</span></td><td>~$5</td></tr>
+          <tr><td class="tag">WEEK C</td><td>Merch spotlight<span class="desc">One product, one code</span></td><td>$0</td></tr>
+          <tr><td class="tag">WEEK D</td><td>Shows / performances<span class="desc">Dates, or a city-vote poll</span></td><td>$0</td></tr>
+          <tr><td class="tag">WEEK E</td><td>Small shoutout giveaway<span class="desc">Fan feature or small prize</span></td><td>~$10</td></tr>
+          <tr><td class="tag">1&times;/QTR</td><td>Paid-entry giveaway<span class="desc">Swaps a Week E slot</span></td><td>revenue</td></tr>
+        </table>
+      </div>
+
+      <div class="block">
+        <div class="eyebrow">Welcome sequence</div>
+        <h2>Fires the moment someone joins</h2>
+        <table>
+          <tr><td class="tag">Day 0</td><td>Confirm entry + link back to the video that brought them</td></tr>
+          <tr><td class="tag">Day 1</td><td>Who you are — short story, one embedded track</td></tr>
+          <tr><td class="tag">Day 3</td><td>Bonus content — unreleased clip or BTS</td></tr>
+          <tr><td class="tag">Day 7</td><td>Ask for a reply — "what song got you here?"</td></tr>
+          <tr><td class="tag">Day 11</td><td>Drops into the standing weekly rotation</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <div class="block">
+        <div class="eyebrow">Influencer outreach</div>
+        <h2>Micro-pages, negotiated volume</h2>
+        <table class="rate-mini">
+          <tr><td>$10&ndash;25</td><td>1 story, 5K&ndash;15K followers</td></tr>
+          <tr><td>$25&ndash;50</td><td>~2&times;/wk for the month, 10K&ndash;30K</td></tr>
+          <tr><td>$50&ndash;100</td><td>~4&times;/wk for the month, 20K&ndash;75K</td></tr>
+        </table>
+        <div class="script-box">
+          <span class="lbl">Negotiation opener</span>
+          Instead of one post, what would you charge for <em>about 4 story shares a week</em> for the month, same clip/link, swapped when I've got something new? Less work for you than a fresh post each time.
+        </div>
+        <div class="script-box">
+          <span class="lbl">Non-negotiable</span>
+          Every story uses a native <em>link sticker</em> straight to the playlist — not "link in bio" — with a tracked link per creator.
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="eyebrow">Every email</div>
+        <h2>One footer, reused everywhere</h2>
+        <div class="script-box">
+          A quiet <em>"Shop merch &rarr;"</em> line in the same spot of every email's footer — welcome series included. It never competes with that week's topic and never reads as a pitch; it's just always there to click if they're already in a buying mood.
+        </div>
+        <div class="script-box">
+          <span class="lbl">Offline version</span>
+          A QR code on the physical merch itself — tag, label, packaging — linking to the signup and to buy more. Same loop, no screen required.
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="eyebrow">Setup order</div>
+        <h2>Build once, in this order</h2>
+        <ul class="checklist">
+          <li><div class="box"></div><div>Create Beehiiv publication + signup form with source tags</div></li>
+          <li><div class="box"></div><div>Write 5-day welcome automation (Day 0/1/3/7/11)</div></li>
+          <li><div class="box"></div><div>Write 6 rotating weekly templates + schedule broadcast</div></li>
+          <li><div class="box"></div><div>Build the playlist — videos + vlogs, autoplay order</div></li>
+          <li><div class="box"></div><div><b>CTA is line one</b> of every video description</div></li>
+          <li><div class="box"></div><div>Vet + DM 6&ndash;10 micro-pages, negotiate ~4&times;/wk</div></li>
+          <li><div class="box"></div><div>Confirm link stickers + tracked links, launch promo</div></li>
+          <li><div class="box"></div><div>Every link actually clickable — description, popup, bio, footer — never typed-out text</div></li>
+        </ul>
+        <div class="script-box" style="margin-top:8px;">
+          <span class="lbl">After it's running</span>
+          Set once. Then just add a new email to the rotation when you have something to say, or start a separate short automation for one-off things like a show announcement.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="roi">30&times;</div>
+    <div>
+      <p><b>~30:1 is email marketing's commonly cited return</b> — once the list exists and sends are automated. Beehiiv's automation tools sit on paid plans (~$50/mo); the free plan works but means clicking "send" by hand on every email, indefinitely, not just at the start. Paid plans also add <b>list segmentation</b> — grouping fans by city, by interest, by anything you define — so a show announcement can go only to fans in that city instead of your whole list.</p>
+      <div class="links">Free trial + automation: <a href="https://www.beehiiv.com/?via=Emmanuel-Montano" target="_blank" rel="noopener"><b>beehiiv.com/?via=Emmanuel-Montano</b></a> &nbsp;&middot;&nbsp; Free forever, manual sends: <a href="https://www.beehiiv.com" target="_blank" rel="noopener"><b>beehiiv.com</b></a></div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

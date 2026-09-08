@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Encore Funnel Cheat Sheet</title>
+<title>Automatic Music Sales Funnel Cheat Sheet</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <style>
 :root{
@@ -266,13 +266,13 @@ td .desc{color:var(--text-dim);display:block;font-size:11px;margin-top:1px;}
 <body>
 
 
-<div class="banner">This is the quick-start overview. For the full step-by-step process — the negotiation scripts, welcome-sequence copy, and setup detail in depth — see <a href="index.html"><b>the Encore Funnel</b></a>.</div>
+<div class="banner">This is the quick-start overview. For the full step-by-step process — the negotiation scripts, welcome-sequence copy, and setup detail in depth — see <a href="index.html"><b>the Automatic Music Sales Funnel</b></a>.</div>
 
 <div class="sheet">
 
   <div class="head">
     <div>
-      <h1>The <em>Encore</em> Funnel</h1>
+      <h1>The <em>Automatic</em> Music Sales Funnel</h1>
       <p class="credit">By <a href="http://MixedByEmmanuel.com" target="_blank" rel="noopener">MixedByEmmanuel.com</a></p>
     </div>
     <div class="tag">Promo &rarr; YouTube &rarr; Beehiiv &rarr; 52-week automated nurture</div>
@@ -382,8 +382,13 @@ td .desc{color:var(--text-dim);display:block;font-size:11px;margin-top:1px;}
   </div>
 
   <div class="qr-block">
-    <div id="qr-code" class="qr-code" role="img" aria-label="QR code linking to the full Encore Funnel guide"></div>
-    <p class="qr-text">This is the quick-start version. Scan for <a href="index.html">the full Encore Funnel guide</a> — negotiation scripts, welcome-sequence copy, and setup detail in depth.</p>
+    <div id="qr-code" class="qr-code" role="img" aria-label="QR code linking to the full Automatic Music Sales Funnel guide"></div>
+    <p class="qr-text">This is the quick-start version. Scan for <a href="index.html">the full Automatic Music Sales Funnel guide</a> — negotiation scripts, welcome-sequence copy, and setup detail in depth.</p>
+  </div>
+
+  <div class="qr-block">
+    <div id="qr-code-mbe" class="qr-code" role="img" aria-label="QR code linking to MixedByEmmanuel.com"></div>
+    <p class="qr-text">Made by <a href="http://MixedByEmmanuel.com" target="_blank" rel="noopener">MixedByEmmanuel.com</a> — scan or click through.</p>
   </div>
 
 </div>
@@ -391,46 +396,49 @@ td .desc{color:var(--text-dim);display:block;font-size:11px;margin-top:1px;}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
 (function(){
-  var url = "https://pharaohm33.github.io/encore-funnel/";
-  var container = document.getElementById('qr-code');
-  if (!container || typeof qrcode !== 'function') return;
-  var qr = null;
-  for (var t = 1; t <= 12 && !qr; t++) {
-    try {
-      var candidate = qrcode(t, 'M');
-      candidate.addData(url);
-      candidate.make();
-      qr = candidate;
-    } catch (e) { /* try next type number */ }
-  }
-  if (!qr) return;
-  var n = qr.getModuleCount();
-  var quiet = 2;
-  var size = n + quiet * 2;
-  var svgNS = "http://www.w3.org/2000/svg";
-  var svg = document.createElementNS(svgNS, "svg");
-  svg.setAttribute("viewBox", "0 0 " + size + " " + size);
-  svg.setAttribute("role", "presentation");
-  var bg = document.createElementNS(svgNS, "rect");
-  bg.setAttribute("x", 0); bg.setAttribute("y", 0);
-  bg.setAttribute("width", size); bg.setAttribute("height", size);
-  bg.setAttribute("fill", "#ffffff");
-  bg.setAttribute("rx", 2);
-  svg.appendChild(bg);
-  for (var r = 0; r < n; r++) {
-    for (var c = 0; c < n; c++) {
-      if (qr.isDark(r, c)) {
-        var rect = document.createElementNS(svgNS, "rect");
-        rect.setAttribute("x", c + quiet);
-        rect.setAttribute("y", r + quiet);
-        rect.setAttribute("width", 1);
-        rect.setAttribute("height", 1);
-        rect.setAttribute("fill", "#17141b");
-        svg.appendChild(rect);
+  function renderQR(containerId, url) {
+    var container = document.getElementById(containerId);
+    if (!container || typeof qrcode !== 'function') return;
+    var qr = null;
+    for (var t = 1; t <= 12 && !qr; t++) {
+      try {
+        var candidate = qrcode(t, 'M');
+        candidate.addData(url);
+        candidate.make();
+        qr = candidate;
+      } catch (e) { /* try next type number */ }
+    }
+    if (!qr) return;
+    var n = qr.getModuleCount();
+    var quiet = 2;
+    var size = n + quiet * 2;
+    var svgNS = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("viewBox", "0 0 " + size + " " + size);
+    svg.setAttribute("role", "presentation");
+    var bg = document.createElementNS(svgNS, "rect");
+    bg.setAttribute("x", 0); bg.setAttribute("y", 0);
+    bg.setAttribute("width", size); bg.setAttribute("height", size);
+    bg.setAttribute("fill", "#ffffff");
+    bg.setAttribute("rx", 2);
+    svg.appendChild(bg);
+    for (var r = 0; r < n; r++) {
+      for (var c = 0; c < n; c++) {
+        if (qr.isDark(r, c)) {
+          var rect = document.createElementNS(svgNS, "rect");
+          rect.setAttribute("x", c + quiet);
+          rect.setAttribute("y", r + quiet);
+          rect.setAttribute("width", 1);
+          rect.setAttribute("height", 1);
+          rect.setAttribute("fill", "#17141b");
+          svg.appendChild(rect);
+        }
       }
     }
+    container.appendChild(svg);
   }
-  container.appendChild(svg);
+  renderQR('qr-code', "https://pharaohm33.github.io/encore-funnel/");
+  renderQR('qr-code-mbe', "http://MixedByEmmanuel.com");
 })();
 </script>
 

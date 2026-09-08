@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Encore Funnel</title>
+<title>Automatic Music Sales Funnel</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <style>
 :root{
@@ -410,7 +410,7 @@ svg text{font-family:"Archivo",sans-serif;}
 <div class="wrap">
 
   <div class="eyebrow">Fan-funnel system &middot; borrowed promo to owned list</div>
-  <h1>The <em>Encore</em> Funnel</h1>
+  <h1>The <em>Automatic</em> Music Sales Funnel</h1>
   <p class="lede">One system, not five separate ones: paid promo drives strangers into your music, your music drives them onto your Beehiiv list, and your list sells merch, shows, and giveaways on autopilot for the next year.</p>
   <p class="hosted-note">By <a href="http://MixedByEmmanuel.com" target="_blank" rel="noopener">MixedByEmmanuel.com</a></p>
 
@@ -703,11 +703,20 @@ svg text{font-family:"Archivo",sans-serif;}
   </div>
 
   <div class="qr-block">
-    <div id="qr-code" class="qr-code" role="img" aria-label="QR code linking to the Encore Funnel Cheat Sheet"></div>
+    <div id="qr-code" class="qr-code" role="img" aria-label="QR code linking to the Automatic Music Sales Funnel Cheat Sheet"></div>
     <div>
       <div class="eyebrow">Quick reference</div>
       <h2 style="margin-bottom:6px;">Scan for the cheat sheet</h2>
       <p class="qr-text">A condensed, one-screen version of everything above — the flow, the rotation, the rates, the checklist — for pulling up on your phone mid-DM or mid-shoot. <a href="cheat-sheet.html">Open it directly</a>.</p>
+    </div>
+  </div>
+
+  <div class="qr-block">
+    <div id="qr-code-mbe" class="qr-code" role="img" aria-label="QR code linking to MixedByEmmanuel.com"></div>
+    <div>
+      <div class="eyebrow">Made by</div>
+      <h2 style="margin-bottom:6px;">MixedByEmmanuel.com</h2>
+      <p class="qr-text"><a href="http://MixedByEmmanuel.com" target="_blank" rel="noopener">MixedByEmmanuel.com</a> — scan or click through.</p>
     </div>
   </div>
 
@@ -716,46 +725,49 @@ svg text{font-family:"Archivo",sans-serif;}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
 (function(){
-  var url = "https://pharaohm33.github.io/encore-funnel/cheat-sheet.html";
-  var container = document.getElementById('qr-code');
-  if (!container || typeof qrcode !== 'function') return;
-  var qr = null;
-  for (var t = 1; t <= 12 && !qr; t++) {
-    try {
-      var candidate = qrcode(t, 'M');
-      candidate.addData(url);
-      candidate.make();
-      qr = candidate;
-    } catch (e) { /* try next type number */ }
-  }
-  if (!qr) return;
-  var n = qr.getModuleCount();
-  var quiet = 2;
-  var size = n + quiet * 2;
-  var svgNS = "http://www.w3.org/2000/svg";
-  var svg = document.createElementNS(svgNS, "svg");
-  svg.setAttribute("viewBox", "0 0 " + size + " " + size);
-  svg.setAttribute("role", "presentation");
-  var bg = document.createElementNS(svgNS, "rect");
-  bg.setAttribute("x", 0); bg.setAttribute("y", 0);
-  bg.setAttribute("width", size); bg.setAttribute("height", size);
-  bg.setAttribute("fill", "#ffffff");
-  bg.setAttribute("rx", 2);
-  svg.appendChild(bg);
-  for (var r = 0; r < n; r++) {
-    for (var c = 0; c < n; c++) {
-      if (qr.isDark(r, c)) {
-        var rect = document.createElementNS(svgNS, "rect");
-        rect.setAttribute("x", c + quiet);
-        rect.setAttribute("y", r + quiet);
-        rect.setAttribute("width", 1);
-        rect.setAttribute("height", 1);
-        rect.setAttribute("fill", "#17141b");
-        svg.appendChild(rect);
+  function renderQR(containerId, url) {
+    var container = document.getElementById(containerId);
+    if (!container || typeof qrcode !== 'function') return;
+    var qr = null;
+    for (var t = 1; t <= 12 && !qr; t++) {
+      try {
+        var candidate = qrcode(t, 'M');
+        candidate.addData(url);
+        candidate.make();
+        qr = candidate;
+      } catch (e) { /* try next type number */ }
+    }
+    if (!qr) return;
+    var n = qr.getModuleCount();
+    var quiet = 2;
+    var size = n + quiet * 2;
+    var svgNS = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("viewBox", "0 0 " + size + " " + size);
+    svg.setAttribute("role", "presentation");
+    var bg = document.createElementNS(svgNS, "rect");
+    bg.setAttribute("x", 0); bg.setAttribute("y", 0);
+    bg.setAttribute("width", size); bg.setAttribute("height", size);
+    bg.setAttribute("fill", "#ffffff");
+    bg.setAttribute("rx", 2);
+    svg.appendChild(bg);
+    for (var r = 0; r < n; r++) {
+      for (var c = 0; c < n; c++) {
+        if (qr.isDark(r, c)) {
+          var rect = document.createElementNS(svgNS, "rect");
+          rect.setAttribute("x", c + quiet);
+          rect.setAttribute("y", r + quiet);
+          rect.setAttribute("width", 1);
+          rect.setAttribute("height", 1);
+          rect.setAttribute("fill", "#17141b");
+          svg.appendChild(rect);
+        }
       }
     }
+    container.appendChild(svg);
   }
-  container.appendChild(svg);
+  renderQR('qr-code', "https://pharaohm33.github.io/encore-funnel/cheat-sheet.html");
+  renderQR('qr-code-mbe', "http://MixedByEmmanuel.com");
 })();
 </script>
 

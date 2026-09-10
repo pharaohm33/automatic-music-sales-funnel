@@ -1,5 +1,7 @@
 # Automatic Music Sales Funnel
 
+**In short:** you drive free and/or paid traffic — influencer marketing plus your own efforts — to a YouTube playlist. That playlist trades something the audience actually wants (a giveaway, unreleased content, whatever the hook is) for an email signup. From there, you send that list entertaining emails all year — new videos, behind-the-scenes content, updates — and in the footer of those emails, every week or multiple times a week, you give people a way to buy merch, show tickets, and deluxe versions of releases.
+
 A step-by-step system for independent artists: turn a cheap influencer shoutout into a YouTube view, a YouTube view into a Beehiiv email signup, and that signup into a year of automated weekly emails that sell merch, shows, and giveaways — without manually pitching anyone.
 
 **Live pages:**
